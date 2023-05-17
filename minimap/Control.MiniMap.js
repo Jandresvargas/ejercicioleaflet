@@ -24,7 +24,7 @@
 		includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
 
 		options: {
-			position: 'bottomright',
+			position: 'bottomleftt',
 			toggleDisplay: false,
 			zoomLevelOffset: -5,
 			zoomLevelFixed: false,
