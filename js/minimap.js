@@ -5,7 +5,8 @@ var minimap = new L.Control.MiniMap(urlminimap,
 	{
 		toggleDisplay: true,
 		minimized: true,
-		position: "bottomright"
+		position: "bottomright",
+		zoom: 10
 	}).addTo(map);
 	
 	//agrega escala
