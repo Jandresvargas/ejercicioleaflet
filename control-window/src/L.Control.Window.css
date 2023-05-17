@@ -29,8 +29,8 @@
 .leaflet-control-window{
     position: absolute;
     z-index: 2000;
-    border-radius: 2px;
-    margin: 8px;
+    border-radius: 10px;
+    margin: 10px;
 
     /** BOX SHADOW **/
     -webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
@@ -39,14 +39,14 @@
 }
 
 .control-window{
-    background-color: #ffffff;
-    color: #353535;
+    background-color: #a9a9a9;
+    color: #ff0000;
     font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 
 .leaflet-control-window .titlebar{
-    min-height: 38px;
+    min-height: 40px;
     cursor: grab;
     cursor: -webkit-grab;
     cursor: -moz-grab;
@@ -70,14 +70,14 @@
     transition-timing-function: linear;
 
 
-    color: #e4e4e4;
+    color: #ff0101;
     font-size: 22pt;
     text-align: center;
     line-height: 0.9em;
 }
 
 .leaflet-control-window .close:hover {
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(255, 0, 0, 0.65);
 }
 
 .leaflet-control-window .content{

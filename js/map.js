@@ -31,7 +31,9 @@ var map = L.map('map',
 
     $.getJSON('geojson/comuna22.geojson', function(data) {
         comuna22geojson.addData(data);
-        comuna22geojson.addOverlay(map);
+        comuna22geojson.eachLayer(function(layer) {
+            layer.bindPopup(layer.feature.properties.nombre);
+          });
     });
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa 
@@ -41,5 +43,5 @@ var map = L.map('map',
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
-var win =  L.control.window(map,{title:'Bienvenido',content:'Comuna 22'+'<br>'+'<img src="img/Univalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();
+var win =  L.control.window(map,{title:'Bienvenido',content:'Comuna 22'+'<br>'+'<img src="img/logovalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();
 ////Ubicaciones posibles para la ventana emerente de 'center', 'top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'

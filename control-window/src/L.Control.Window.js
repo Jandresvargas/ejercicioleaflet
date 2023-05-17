@@ -10,7 +10,7 @@ L.Control.Window = L.Control.extend({
         closeButton: true,
         content: undefined,
         prompt: undefined,
-        maxWidth: 600,
+        maxWidth: 500,
         modal: false,
         position: 'center'
     },
