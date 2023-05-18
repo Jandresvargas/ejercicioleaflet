@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <!-- Descripcion de la pagina -->
     <meta name="description" content="Esta es la biografía de Andrés Vargas">
-    <!-- Vista de compatibilidad-->        <meta http-equiv="X-UAV-Compatible" content = "IE=edge">
+    <!-- Vista de compatibilidad-->        
+    <meta http-equiv="X-UAV-Compatible" content = "IE=edge">
     <meta name="viewport" content ="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Jorge Andres Vargas">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -50,7 +51,6 @@
                 };
             L.control.scale().addTo(map);
             legend.addTo(map)
-            L.Control.geocoder().addTo(map);
             </script>
 
     </div>
@@ -78,16 +78,16 @@
                     legend.onAdd = function(map) {
                     var div = L.DomUtil.create("div", "legend");
                     div.innerHTML = 
-                    '<p><b>Comuna 22</b></p>' +
-                    '<li>Andrés Vargas </li>' +
+                    '<h><b>Comuna 22</b></h>' +
+                    '<li>Andrés Vargas Pérez</li>' +
                     '</ul></p>' +
                     'Creado con Leaflet <br>' +
+                    'SIG WEB <br>' +
                     '<img src="img/Univalle.png" style="width:5%">';
                     return div;
                     };
                 L.control.scale().addTo(map);
                 legend.addTo(map)
-                L.Control.geocoder().addTo(map);
             
                 </script>
             </div>
