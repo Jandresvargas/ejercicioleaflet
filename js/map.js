@@ -5,7 +5,7 @@ var map = L.map('map',
 	}).setView([3.351602, -76.536017], 14);           
 	
 	
-	var mapabase = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+	var mapabase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 		{
 			maxZoom: 15,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -51,18 +51,18 @@ var map = L.map('map',
     $.getJSON('geojson/sitios_interes.geojson', function(data) {
         comuna22sitios_interes.addData(data);
         comuna22sitios_interes.eachLayer(function(layer) {
-            layer.bindPopup(layer.feature.properties.nombre);
+            layer.bindPopup(layer.feature.properties.NOMBRE);
           });
     });
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
     leyenda.addOverlay(comunas, 'Comunas');
-    leyenda.addOverlay(comuna22geojson, 'xdd 3');
+    leyenda.addOverlay(comuna22geojson, 'Comuna 22');
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
-var win =  L.control.window(map,{title:'Bienvenido',content:'Comuna 22'+'<br>'+'<img src="img/logovalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();
+var win =  L.control.window(map,{title:'Bienvenido',content:'Este visor contiene información de sitios de interés en la Comuna 22 de Cali'+'<br>'+'<img src="img/logovalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();
 ////Ubicaciones posibles para la ventana emerente de 'center', 'top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'
