@@ -35,6 +35,14 @@ var map = L.map('map',
     });
 
 
+
+    // Ícono personalizado para carnivoros
+    const icono = L.divIcon({
+        iconUrl: 'img/zoom.png',
+        className: 'estiloIconos'
+    });
+
+
     //// Agregar geojson con informacion extra
     //// Comuna 22
     var comuna22geojson = L.geoJSON();
@@ -55,7 +63,33 @@ var map = L.map('map',
           });
     });
 
+    $.getJSON('geojson/sitios_interes.geojson', function(geodata) {
+    // Capa de registros individuales
+        var capa_carnivora = L.geoJSON(geodata, {
+            style: function(feature ) {
+                return {'color': "#013220", 'weight': 3}
+            },
+            onEachFeature: function(feature, layer) {
+                var popupText = "<strong>Especie</strong>: " + feature.properties.NOMBRE + "<br>" + 
+                                "<strong>Localidad</strong>: " + feature.properties.UBICACION + "<br>" + 
+                                "<strong>Fecha</strong>: " + feature.properties.TIPO + "<br>" + 
+                                "<strong>Institución</strong>: " + feature.properties.BARRIO + "<br>" + 
+                                "<br>";
+                layer.bindPopup(popupText);
+            },
+            pointToLayer: function(getJSONPoint, latlng) {
+                return L.marker(latlng, {icon: icono});
+            }
+            });
+    });
     
+    var capa_carnivora_agrupados = L.markerClusterGroup({spiderfyOnMaxZoom: true});
+    capa_carnivora_agrupados.addLayer(comuna22sitios_interes);
+    //// Mapa de calor
+    ///var heat = L.heatLayer(comuna22geojson,
+    ///    {radius: 50}),
+    ///    draw = true;
+
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
@@ -63,6 +97,7 @@ var map = L.map('map',
     leyenda.addOverlay(comuna22geojson, 'Comuna 22');
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
+    leyenda.addOverlay(capa_carnivora_agrupados, 'Cos');
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
