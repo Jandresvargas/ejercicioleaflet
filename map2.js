@@ -36,11 +36,6 @@ var map = L.map('map',
 
 
 
-    // Ícono personalizado para carnivoros
-    const icono = L.divIcon({
-        iconUrl: 'img/zoom.png',
-        className: 'estiloIconos'
-    });
 
 
     //// Agregar geojson con informacion extra
@@ -62,7 +57,7 @@ var map = L.map('map',
             layer.bindPopup("<strong> Nombre: </strong>" + layer.feature.properties.NOMBRE);
           });
     });
-
+    /// Marker cluster o agrupacion de puntos 
     var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true});
 
     // Carga el archivo GeoJSON
@@ -78,7 +73,22 @@ var map = L.map('map',
         });
       });
     
+      //mapa de calor
+      fetch('geojson/sitios_interes.geojson')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        comuna22sitios_interes.addData(data);
 
+        var coordinates = [];
+        data.features.forEach(function (feature) {
+          coordinates.push(feature.geometry.coordinates.reverse());
+        });
+
+        var heatLayer = L.heatLayer(coordinates);
+        leyenda.addOverlay(heatLayer, 'Mapa de calor');
+      });
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
@@ -87,6 +97,7 @@ var map = L.map('map',
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
     leyenda.addOverlay(markers, 'Sitios de interés agrupados');
+    
     
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
