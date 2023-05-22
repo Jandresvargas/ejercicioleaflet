@@ -5,18 +5,15 @@ var mapa = L.map('map').setView([3.351602, -76.536017], 14);
 // Definición de capas base
 
 var capa_osm = L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', 
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
   {
-    maxZoom: 19,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    maxZoom: 19
   }
 ).addTo(mapa);
 
 var capa_cartoDB_darkMatter = L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', 
+    'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 
     {
-	  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	  subdomains: 'abcd',
 	  maxZoom: 19
     }
 ).addTo(mapa);

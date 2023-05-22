@@ -54,6 +54,11 @@ var map = L.map('map',
             layer.bindPopup(layer.feature.properties.NOMBRE);
           });
     });
+    //// Mapa de calor
+    var heat = L.heatLayer(comuna22geojson,
+        {radius: 50}),
+        draw = true;
+
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
@@ -61,6 +66,7 @@ var map = L.map('map',
     leyenda.addOverlay(comuna22geojson, 'Comuna 22');
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
+    leyenda.addOverlay(heat, 'Cos');
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
