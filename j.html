@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Heatmap con Leaflet y GeoJSON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+  <script>
+    var map = L.map('map').setView([3.351602, -76.536017], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+    }).addTo(map);
+
+    var geojsonLayer = L.geoJSON();
+
+    fetch('geojson/sitios_interes.geojson')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        geojsonLayer.addData(data);
+
+        var coordinates = [];
+        data.features.forEach(function (feature) {
+          coordinates.push(feature.geometry.coordinates.reverse());
+        });
+
+        var heatLayer = L.heatLayer(coordinates).addTo(map);
+      });
+  </script>
+</body>
+</html>
