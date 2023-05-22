@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Marker Cluster con GeoJSON</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Complemento Leaflet.markercluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
+  
+  <script>
+    var map = L.map('map').setView([3.351602, -76.536017], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+    }).addTo(map);
+
+    var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true});
+
+    // Carga el archivo GeoJSON
+    fetch('geojson/sitios_interes.geojson')
+      .then(response => response.json())
+      .then(data => {
+        L.geoJSON(data, {
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<strong> Nombre: </strong>" + layer.feature.properties.NOMBRE);
+            // Crea un marcador para cada feature y lo agrega al cluster
+            markers.addLayer(layer);
+          }
+        });
+
+        // Agrega el cluster al mapa
+        map.addLayer(markers);
+      });
+  </script>
+</body>
+</html>

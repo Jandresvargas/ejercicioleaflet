@@ -55,7 +55,22 @@ var map = L.map('map',
           });
     });
 
+    //// Marker Cluster 
     
+    var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true});
+
+    // Carga el archivo GeoJSON
+    fetch('geojson/sitios_interes.geojson')
+      .then(response => response.json())
+      .then(data => {
+        L.geoJSON(data, {
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<strong> Nombre: </strong>" +layer.feature.properties.NOMBRE);
+            // Crea un marcador para cada feature y lo agrega al cluster
+            markers.addLayer(layer);
+          }
+        });
+      });
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
@@ -63,6 +78,7 @@ var map = L.map('map',
     leyenda.addOverlay(comuna22geojson, 'Comuna 22');
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
+    leyenda.addOverlay(markers, 'Sitios de interés agrupados');
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
