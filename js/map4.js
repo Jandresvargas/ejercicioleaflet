@@ -4,25 +4,19 @@ var map = L.map('map',
 		zoom: 10,
     minZoom:13,
     maxZoom: 16,
-
 	}).setView([3.351602, -76.536017], 14);           
 	
 	
-  
-
-
-
-
 	var mapabase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 		{
-      minZoom:13,
+			minZoom:13,
       maxZoom: 16,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 	
 	var mapabase2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 
 		{
-      minZoom:13,
+			minZoom:13,
       maxZoom: 16,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		})
@@ -42,51 +36,52 @@ var map = L.map('map',
     layers: 'idesc:mc_comunas',
     format: 'image/png',
     transparent: true,
-    CQL_FILTER: "nombre='Comuna 22'",
     });
-    comunas.addTo(map)
+
+
+
+
 
     //// Agregar geojson con informacion extra
     //// Comuna 22
     var comuna22geojson = L.geoJSON();
+
     $.getJSON('geojson/comuna22.geojson', function(data) {
         comuna22geojson.addData(data);
         comuna22geojson.eachLayer(function(layer) {
             layer.bindPopup(layer.feature.properties.nombre);
           });
     });
-
     //// Sitios de interes
     var comuna22sitios_interes = L.geoJSON();
-      $.getJSON('geojson/sitios_interes.geojson', function(data) {
+
+    $.getJSON('geojson/sitios_interes.geojson', function(data) {
         comuna22sitios_interes.addData(data);
         comuna22sitios_interes.eachLayer(function(layer) {
-            layer.bindPopup(layer.feature.properties.NOMBRE);
+            layer.bindPopup("<strong> Nombre: </strong>" + layer.feature.properties.NOMBRE);
           });
     });
-    // Estado del icono
-    var iconChanged = false;
+
     //  cambiar los iconos
-    function cambiarIconos(comuna22sitios_interes, iconUrl) {
-      var iconUrl = iconChanged ? 'img/casa2.png' : 'img/casa.png';
-      comuna22sitios_interes.eachLayer(function (layer) {
+    function cambiarIconos(geojsonLayer, iconUrl) {
+      geojsonLayer.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
           layer.setIcon(L.icon({
             iconUrl: iconUrl,
-            iconSize: [30, 30],
+            iconSize: [32, 32],
             iconAnchor: [16, 32]
           }));
         }
       });
-      iconChanged = !iconChanged;
-      
     }
-    
+
+
+
+
     /// Marker cluster o agrupacion de puntos 
     var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true});
 
     // Carga el archivo GeoJSON
-    var comuna22sitios = L.geoJSON();
     fetch('geojson/sitios_interes.geojson')
       .then(response => response.json())
       .then(data => {
@@ -99,8 +94,6 @@ var map = L.map('map',
         });
       });
     
-
-      
       //mapa de calor
       fetch('geojson/sitios_interes.geojson')
       .then(function (response) {
@@ -113,10 +106,10 @@ var map = L.map('map',
         data.features.forEach(function (feature) {
           coordinates.push(feature.geometry.coordinates.reverse());
         });
-      
+
         var heatLayer = L.heatLayer(coordinates);
-        //Botton de control
-        var button = L.easyButton('<img src="img/heatmap.png"  align="absmiddle" height="16px" >', function () {
+                //Boton de control
+        var button = L.easyButton('<img src="img/cambiaricono.png"  align="absmiddle" height="16px" >', function () {
           if (map.hasLayer(heatLayer)) {
             map.removeLayer(heatLayer);
           } else {
@@ -125,7 +118,10 @@ var map = L.map('map',
         }, 'Mapa de calor').addTo(map);
       });
 
-
+    // Botón para cambiar los iconos
+    var button = L.easyButton('<img src="img/heatmap.png"  align="absmiddle" height="16px" >', function () {
+      cambiarIconos(comuna22sitios_interes, 'img/casa.png');
+    }, 'Cambiar Iconos').addTo(map);
 
     //// Agregar o superponer capas de comunas (WFS), Comuna 22 al mapa y sitios de interes 
 
@@ -136,42 +132,6 @@ var map = L.map('map',
     leyenda.addOverlay(markers, 'Sitios de interés agrupados');
     
     
-    
-// Botón para cambiar los iconos
-var button = L.easyButton('<img src="img/cambiaricono.png"  align="absmiddle" height="16px" >', function () {
-  cambiarIconos(comuna22sitios_interes, 'img/casa.png');
-}, 'Cambiar Iconos').addTo(map);
-// create control and add to map
-
-
-// Crear un icono personalizado de localizador
-var IconLoca = L.icon({
-  iconUrl: 'img/localiza.png',
-  iconSize: [32, 32], // Tamaño del icono en píxeles
-  iconAnchor: [16, 32] // Punto de anclaje del icono
-});
-// Crear una instancia de Leaflet-locatecontrol y agregarla al mapa
-lc = L.control
-  .locate({
-    strings: {
-      title: "Ahhhhhh"
-    }
-  })
-  .addTo(map);
-
-  var geocoder = L.Control.geocoder({
-    defaultMarkGeocode: false
-  })
-    .on('markgeocode', function(e) {
-      var bbox = e.geocode.bbox;
-      var poly = L.polygon([
-        bbox.getSouthEast(),
-        bbox.getNorthEast(),
-        bbox.getNorthWest(),
-        bbox.getSouthWest()
-      ]).addTo(map);
-      map.fitBounds(poly.getBounds());
-    })    .addTo(map);
 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
