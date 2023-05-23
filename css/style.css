@@ -12,6 +12,7 @@ body,html {
     border: 10px;
     height: 150px;
     width: 200px;
+    position: 'bottomleft'
   }
 #map { height: 50%;
     height:600px;

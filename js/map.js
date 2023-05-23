@@ -152,21 +152,6 @@ lc = L.control
     }
   })
   .addTo(map);
-
-  var geocoder = L.Control.geocoder({
-    defaultMarkGeocode: false
-  })
-    .on('markgeocode', function(e) {
-      var bbox = e.geocode.bbox;
-      var poly = L.polygon([
-        bbox.getSouthEast(),
-        bbox.getNorthEast(),
-        bbox.getNorthWest(),
-        bbox.getSouthWest()
-      ]).addTo(map);
-      map.fitBounds(poly.getBounds());
-    })    .addTo(map);
-
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
 var win =  L.control.window(map,{title:'Bienvenido',content:'Este visor contiene información de sitios de interés en la Comuna 22 de Cali'+'<br>'+'<img src="img/logovalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();

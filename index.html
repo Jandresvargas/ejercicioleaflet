@@ -58,14 +58,6 @@
   <body>
     <div id="map" style="z-index:0">
         <img id="norte" src="img/norte2.png" style="z-index:9999">
-        
-        <script>
-            L.control.scale().addTo(map);
-            L.control.locate().addTo(map);
-            L.Control.geocoder().addTo(map);
-            legend.addTo(map)
-        </script>
-
     </div>
     <br>
     <div>
@@ -87,7 +79,7 @@
                 <script src="Leaflet-MiniMap-master/Control.MiniMap.js" type="text/javascript"></script>
                 <script src="js/minimap.js" type="text/javascript"></script>
                 <script>
-                    var legend = L.control({position: "bottomleft"});
+                    var legend = L.control({position: "bottomright"});
                     legend.onAdd = function(map) {
                     var div = L.DomUtil.create("div", "legend");
                     div.innerHTML = 
@@ -99,7 +91,8 @@
                     '<img src="img/logovalle.png" style="width:90%">';
                     return div;
                     };
-                L.control.scale({ className: 'custom-scale-control' }).addTo(map);
+                L.control.scale().addTo(map);
+                L.Control.geocoder().addTo(map);
                 legend.addTo(map)
                 function updateLegendCoordinates(e) {
                     var legendCoordinates = document.getElementById('legend-coordinates');
