@@ -1,0 +1,26 @@
+body,html {
+    background-image: url("img/galeria.JPG");
+    background-size: cover;
+}
+    .estiloIconos {
+        color: brown;
+    }
+    .legend {
+    background-color: #e9eacb;
+    padding: 5px;
+    opacity: 0.8;
+    border: 10px;
+    height: 150px;
+    width: 200px;
+  }
+#map { height: 50%;
+    height:600px;
+    box-shadow: 5px 5px 5px #4951e4 }
+
+#norte{
+    position:fixed;
+    width:3.5%;
+    left: 4.5%;
+    padding: 1.2%;
+    }
+    

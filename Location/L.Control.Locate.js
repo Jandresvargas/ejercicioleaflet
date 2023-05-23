@@ -325,8 +325,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
         title: "Posición",
         metersUnit: "meters",
         feetUnit: "feet",
-        popup: "You are within {distance} {unit} from this point",
-        outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
+        popup: "Estás a {distance} {unit} de este punto",
+        outsideMapBoundsMsg: "Estás fuera de los limites del mapa"
       },
       /** The default options passed to leaflets locate method. */
       locateOptions: {

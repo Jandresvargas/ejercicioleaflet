@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
     
     <!-- Estilo para el mapa -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+
 
 
     <!-- <link rel ="stylesheet" type="text/css" href="Leaflet-MiniMap-master/Control.MiniMap.min.css">-->
@@ -51,7 +52,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-
+    
 
   </head>
   <body>
@@ -59,22 +60,11 @@
         <img id="norte" src="img/norte2.png" style="z-index:9999">
         
         <script>
-                var legend = L.control({position: "bottomleft"});
-                legend.onAdd = function(map) {
-                var div = L.DomUtil.create("div", "legend");
-                div.innerHTML = 
-                '<p><b>Comuna 22</b></p>' +
-                '<li>Andrés Vargas </li>' +
-                '</ul></p>' +
-                'Creado con Leaflet <br>' +
-                '<img src="img/Univalle.png" style="width:5%">';
-                return div;
-                };
             L.control.scale().addTo(map);
             L.control.locate().addTo(map);
             L.Control.geocoder().addTo(map);
             legend.addTo(map)
-            </script>
+        </script>
 
     </div>
     <br>
@@ -102,15 +92,21 @@
                     var div = L.DomUtil.create("div", "legend");
                     div.innerHTML = 
                     '<h><b>Comuna 22</b></h>' +
-                    '<li>Andrés Vargas Pérez</li>' +
+                    '<li id="legend-coordinates"></li>' +
                     '</ul></p>' +
                     'Creado con Leaflet <br>' +
                     'SIG WEB <br>' +
-                    '<img src="img/Univalle.png" style="width:5%">';
+                    '<img src="img/logovalle.png" style="width:90%">';
                     return div;
                     };
-                L.control.scale().addTo(map);
+                L.control.scale({ className: 'custom-scale-control' }).addTo(map);
                 legend.addTo(map)
+                function updateLegendCoordinates(e) {
+                    var legendCoordinates = document.getElementById('legend-coordinates');
+                    legendCoordinates.innerHTML = '<strong>Lat: </strong> ' + e.latlng.lat.toFixed(3) + '<strong>  Long:</strong> ' + e.latlng.lng.toFixed(3);
+                    }
+
+                map.on('mousemove', updateLegendCoordinates);
             
                 </script>
             </div>
