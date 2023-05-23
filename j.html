@@ -16,9 +16,29 @@
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  
+
   <script>
     var map = L.map('map').setView([3.351602, -76.536017], 14);
 
+
+
+    // Agregar el control de geocodificación
+    var geocoder = L.Control.geocoder({
+      defaultMarkGeocode: false,
+    }).addTo(map);
+    
+    // Evento que se dispara cuando se selecciona un resultado de geocodificación
+    geocoder.on('markgeocode', function (e) {
+      var result = e.geocode;
+      console.log(result.center);
+      // Aquí puedes hacer algo con las coordenadas del resultado geocodificado
+    });
+
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
     }).addTo(map);
