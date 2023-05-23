@@ -2,77 +2,49 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Visualizar Coordenadas en Leaflet</title>
+  <title>Botón de Reinicio en Leaflet</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-      <!-- plugin jquery -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>  
+
   <style>
     #map {
       height: 400px;
     }
-    .coordinates {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background-color: rgb(62, 52, 52);
-      padding: 5px;
-    }
-    .legend {
-      background-color: #e9eacb;
-      padding: 5px;
-      opacity: 0.8;
-      height: 150px;
-      width: 200px;
-    }
   </style>
-
-
-
-
-    
 </head>
 <body>
   <div id="map"></div>
-  <div id="coordinates" class="coordinates"></div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+
   <script>
+    // Crear el mapa
     var map = L.map('map').setView([51.505, -0.09], 13);
 
+    // Agregar capa de mapa base
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    
+    // Crear el botón de reinicio
+    var resetButton = L.easyButton({
+      position:  'bottomleft',
+      states: [{
+        stateName: 'reset-view',
+        icon: 'fa fa-refresh',
+        title: 'Reiniciar vista',
+        onClick: function(control) {
+          // Restablecer la vista del mapa a la posición inicial
+          map.setView([51.505, -0.09], 13);
+        }
+      }]
+    }).addTo(map);
+
+    // Agregar el botón al mapa
+    resetButton.addTo(map);
   </script>
-  <script>
-    var coordinatesContainer = document.getElementById('coordinates');
-
-    function showCoordinates(e) {
-    coordinatesContainer.innerHTML = 'Latitud: ' + e.latlng.lat.toFixed(6) + '<br>Longitud: ' + e.latlng.lng.toFixed(6);
-    }
-    map.on('mousemove', showCoordinates);
-    var legend = L.control({position: "bottomleft"});
-    legend.onAdd = function(map) {
-    var div = L.DomUtil.create("div", "legend");
-    div.innerHTML = 
-    '<h1><b>Comuna 22</b></h1>' +
-    '<li id="legend-coordinates"></li>' +
-    '</ul></p>' +
-    'Creado por Andrés Vargas <br>' +
-    'SIG WEB <br>' +
-    'id="legend-coordinates"'+
-    '<img src="img/logovalle.png" style="width:90%">';
-    return div;
-    };
-legend.addTo(map)
-function updateLegendCoordinates(e) {
-      var legendCoordinates = document.getElementById('legend-coordinates');
-      legendCoordinates.innerHTML = '<strong>Lat: </strong> ' + e.latlng.lat.toFixed(3) + '<strong>  Long:</strong> ' + e.latlng.lng.toFixed(3);
-    }
-
-map.on('mousemove', updateLegendCoordinates);
-</script>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
     
     <!-- Estilo para el mapa -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 
     <!-- <link rel ="stylesheet" type="text/css" href="Leaflet-MiniMap-master/Control.MiniMap.min.css">-->
@@ -42,7 +42,9 @@
     <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />    
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.css" />   
+    
+     
 
     <link rel="stylesheet" href="css/L.Control.Locate.css">
     <script src="Location/L.Control.Locate.js"></script>
@@ -70,10 +72,7 @@
                 '<img src="img/Univalle.png" style="width:5%">';
                 return div;
                 };
-            L.control.scale().addTo(map);
-            L.control.locate().addTo(map);
-            L.Control.geocoder().addTo(map);
-            legend.addTo(map)
+
             </script>
 
     </div>
@@ -110,7 +109,7 @@
                     return div;
                     };
                 L.control.scale().addTo(map);
-                legend.addTo(map)
+                legend.addTo(map);
             
                 </script>
             </div>

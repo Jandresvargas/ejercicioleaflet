@@ -1,11 +1,5 @@
 //// 
-var map = L.map('map',
-	{
-		zoom: 10,
-    minZoom:13,
-    maxZoom: 16,
-
-	}).setView([3.351602, -76.536017], 14);           
+var map = L.map('map').setView([3.351602, -76.536017], 14);           
 	
 	
   
@@ -36,6 +30,10 @@ var map = L.map('map',
     format: 'image/png',
     transparent: true,
     });
+
+
+    
+
 
     var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
     {
@@ -123,6 +121,8 @@ var map = L.map('map',
             map.addLayer(heatLayer);
           }
         }, 'Mapa de calor').addTo(map);
+
+
       });
 
 
@@ -141,7 +141,27 @@ var map = L.map('map',
 var button = L.easyButton('<img src="img/cambiaricono.png"  align="absmiddle" height="16px" >', function () {
   cambiarIconos(comuna22sitios_interes, 'img/casa.png');
 }, 'Cambiar Iconos').addTo(map);
-// create control and add to map
+
+    // Crear el botón de reinicio
+var resetButton = L.easyButton({
+  position:  'bottomleft',
+  states: [{
+    stateName: 'reset-view',
+    icon: 'fa fa-refresh',
+    position:'bottomleft',
+    title: 'Reiniciar vista',
+    onClick: function(control) {
+      // Restablecer la vista del mapa a la posición inicial
+      map.setView([3.351602, -76.536017], 14);
+    }
+  }]
+},'Ahhhhhhhhhh').addTo(map);
+resetButton.addTo(map);
+
+
+
+// create control and add to 
+
 
 
 // Crear un icono personalizado de localizador
