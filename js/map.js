@@ -1,4 +1,4 @@
-//// 
+////  Crea mapa 
 var map = L.map('map',
 	{
 		zoom: 10,
@@ -6,14 +6,14 @@ var map = L.map('map',
     maxZoom: 16,
 
 	}).setView([3.351602, -76.536017], 14);           
-	
+	//// Mapabase 1 
 	var mapabase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 		{
       minZoom:13,
       maxZoom: 16,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
-	
+	///Mapa base 2
 	var mapabase2 = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', 
 		{
       minZoom:13,
@@ -30,6 +30,20 @@ var map = L.map('map',
     transparent: true,
     });
 
+    var ips = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
+    {
+    layers: 'salud:ads_ips_servicios',
+    format: 'image/png',
+    transparent: true,
+    });
+    ips.on('click', function(e) {
+      var feature = e.features[0];
+      var popupContent = "<strong>Nombre:</strong> " + feature.properties.nombre_ips;
+      L.popup().setLatLng(e.latlng).setContent(popupContent).openOn(map);
+    });
+
+
+
     var comunas = L.tileLayer.wms('http://ws-idesc.cali.gov.co:8081/geoserver/wfs?',
     {
     layers: 'idesc:mc_comunas',
@@ -37,6 +51,7 @@ var map = L.map('map',
     transparent: true,
     CQL_FILTER: "nombre='Comuna 22'",
     });
+
     comunas.addTo(map)
 
     //// Agregar geojson con informacion extra
@@ -77,7 +92,6 @@ var map = L.map('map',
     
     /// Marker cluster o agrupacion de puntos 
     var markers = L.markerClusterGroup({spiderfyOnMaxZoom: true});
-
     // Carga el archivo GeoJSON
     var comuna22sitios = L.geoJSON();
     fetch('geojson/sitios_interes.geojson')
@@ -91,9 +105,7 @@ var map = L.map('map',
           }
         });
       });
-    
 
-      
       //mapa de calor
       fetch('geojson/sitios_interes.geojson')
       .then(function (response) {
@@ -125,6 +137,7 @@ var map = L.map('map',
     leyenda.addOverlay(comunas, 'Comunas');
     leyenda.addOverlay(comuna22geojson, 'Comuna 22');
     leyenda.addOverlay(bienestar_social, 'Bienestar social');
+    leyenda.addOverlay(ips, 'Servicios IPS');
     leyenda.addOverlay(comuna22sitios_interes, 'Sitios de interes');
     leyenda.addOverlay(markers, 'Sitios de interés agrupados');
     
@@ -151,6 +164,7 @@ lc = L.control
     }
   })
   .addTo(map);
+//// Agregar minimapa 
 var minimap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'Universidad del Valle',subdomains: '2023'});
 
 var win =  L.control.window(map,{title:'Bienvenido',content:'Este visor contiene información de sitios de interés en la Comuna 22 de Cali'+'<br>'+'<img src="img/logovalle.png" style="width:100%"; text-align: center;>', position: 'center'}).show();

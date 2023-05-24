@@ -5,7 +5,7 @@ var minimap = new L.Control.MiniMap(urlminimap,
 	{
 		toggleDisplay: true,
 		minimized: true,
-		position: "bottomright",
+		position: "bottomleft",
 		width: 200,
 		height: 200,
 		strings: {hideText: 'Ocultar MiniMapa', showText: 'Mostrar MiniMapa'}
