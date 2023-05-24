@@ -209,21 +209,21 @@ L.LatLngGraticule = L.Layer.extend({
 
         // todo: format type of float
         if (lng > 180) {
-            return 'Lat: ' + (360 - lng).toFixed(2) + 'W';
+            return 'Lng: ' + (360 - lng).toFixed(2) + 'W';
         }
         else if (lng > 0 && lng < 180) {
-            return 'Lat: ' + lng.toFixed(2) + 'E';
+            return 'Lng:: ' + lng.toFixed(2) + 'E';
         }
         else if (lng < 0 && lng > -180) {
-            return 'Lat: ' + (lng*-1).toFixed(2) + 'W';
+            return 'Lng: ' + (lng*-1).toFixed(2) + 'W';
         }
         else if (lng == -180) {
-            return 'Lat: ' + (lng*-1).toFixed(2);
+            return 'Lng: ' + (lng*-1).toFixed(2);
         }
         else if (lng < -180) {
-            return 'Lat: ' + (360 + lng).toFixed(2) + 'W';
+            return 'Lng: ' + (360 + lng).toFixed(2) + 'W';
         }
-        return 'Lat: ' + lng.toFixed(2);
+        return 'Lng: ' + lng.toFixed(2);
     },
 
     __calcInterval: function() {
