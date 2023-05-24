@@ -50,12 +50,14 @@ body,html {
   p {
     font-size: 13px;
     margin-top: 20px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    font-family: "Microsoft JhengHei", sans-serif;
   }
   
   .det {
     font-size: 13px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    font-family: monospace;
   }
   
   i {
