@@ -15,32 +15,37 @@ body,html {
     }
 
   .cajon {
-    width: 1000px;
-    height:520px;
+    width: 1150px;
+    height:600px;
     margin: calc(50vh - 190px) auto;
     box-shadow: 0 0 40px -10px black;
-    background: rgb(255, 255, 255);
+    background: rgba(0, 0, 0, 0.568);
     font-family: 'Montserrat', sans-serif;
 
-  }ap {
-    width: 20%;
-    height: 380px;
+  }
+  #map {
+    width: 75%;
+    height: 600px;
     display: inline-block
   }
   
   .map-c {
     float: right;
-    width: 30%;
+    width: 25%;
     height: 100%;
-    padding: 10px;
-    box-sizing: border-box
+    padding: 5px;
+    box-sizing: border-box;
+    background-image: url("img/galeria4.JPG");
+    background-size: cover;
   }
+  
   
   h1 {
     margin: 0;
     font-weight: normal;
-    color: rgb(60, 60, 70);
-    font-size: 28px
+    color: rgb(202, 202, 229);
+    font-size: 28px;
+    font-family: 'Montserrat', sans-serif
   }
   p {
     font-size: 13px;
@@ -63,13 +68,14 @@ body,html {
   
   @media only screen and (max-width: 720px) {
     .texto {
-      height: 450px;
-      margin: calc(50vh - 225px) auto;
+      height: 500px;
+      margin: calc(50vh - 210px) auto;
       overflow: hidden
     }
 
     #map { height: 30%;
-      box-shadow: 5px 5px 5px #4951e4 }
+      box-shadow: 5px 5px 5px #4951e4;
+      display: inline-block}
 
     .map-c {
       float: right;
