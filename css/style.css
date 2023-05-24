@@ -1,5 +1,5 @@
 body,html {
-    background-image: url("img/galeria.JPG");
+    background-image: url("img/galeria4.JPG");
     background-size: cover;
 }
     .estiloIconos {
@@ -15,7 +15,7 @@ body,html {
     position: 'bottomleft'
   }
 #map { height: 50%;
-    height:600px;
+    height:300px;
     box-shadow: 5px 5px 5px #4951e4 }
 
 #norte{
