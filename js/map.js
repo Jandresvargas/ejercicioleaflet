@@ -14,12 +14,12 @@ var map = L.map('map',
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 	///Mapa base 2
-	var mapabase2 = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', 
+	var mapabase2 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', 
 		{
       minZoom:13,
       maxZoom: 16
 		})
-	mapabase.addTo(map);
+	mapabase2.addTo(map);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(map);
     //// Agregar capas wfs y wms 
 
