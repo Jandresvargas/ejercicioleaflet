@@ -54,10 +54,13 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 
+    <script src="grilla/Leaflet.Graticule2.js"></script> 
+
 
   </head>
   <body>
     <div id="map" style="z-index:0">
+        
         <img id="norte" src="img/norte2.png" style="z-index:9999">
         
         <script>
@@ -91,6 +94,7 @@
             </div>
             <div class="col-md-9 order-md-2">
                 <script src="js/map5.js" style="z-index:0"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
                     <!-- Minimapa -->
                 <link rel="stylesheet" href="Leaflet-MiniMap-master/Control.MiniMap.css" />
                 <script src="Leaflet-MiniMap-master/Control.MiniMap.js" type="text/javascript"></script>
@@ -108,6 +112,42 @@
                     '<img src="img/Univalle.png" style="width:5%">';
                     return div;
                     };
+                // Crear el botón de reinicio
+                var resetButton = L.easyButton({
+                position:  'topright',
+                states: [{
+                    stateName: 'reset-view',
+                    icon: '<img src="img/SLIDE.png"  align="absmiddle" height="20px" >',
+                    title: 'Reiniciar vista',
+                    onClick: function(control) {
+                    // Restablecer la vista del mapa a la posición inicial
+                    map.setView([3.351602, -76.536017], 14);
+                    }
+                }]
+                }).addTo(map);
+
+                // Agregar el botón al mapa
+                resetButton.addTo(map);
+
+
+                var graticule = L.latlngGraticule({
+                    showLabel: true,
+                    color: '#222',
+                    zoomInterval: [
+                        {start: 12, end: 13, interval: 0.05},
+                        {start: 14, end: 15, interval: 0.025},
+                        {start: 16, end: 17, interval: 0.01}
+                    ]}).addTo(map);
+                // Crear un botón con Leaflet.EasyButton
+                var graticuleButton = L.easyButton('<img src="img/grilla.png"  align="absmiddle" height="16px" >', function(){
+                    if (map.hasLayer(graticule)) {
+                        map.removeLayer(graticule);
+                    } else {
+                        graticule.addTo(map);
+                    }
+                    }, 'Reticula').addTo(map);
+
+
                 L.control.scale().addTo(map);
                 legend.addTo(map);
             

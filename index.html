@@ -53,6 +53,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
+    <script src="grilla/Leaflet.Graticule2.js"></script> 
+
     
 
   </head>
@@ -92,6 +94,40 @@
                     '<img src="img/logovalle.png" style="width:90%">';
                     return div;
                     };
+                    var resetButton = L.easyButton({
+                    position:  'topright',
+                    states: [{
+                        stateName: 'reset-view',
+                        icon: '<img src="img/SLIDE.png"  align="absmiddle" height="20px" >',
+                        title: 'Reiniciar vista',
+                        onClick: function(control) {
+                        // Restablecer la vista del mapa a la posición inicial
+                        map.setView([3.351602, -76.536017], 14);
+                        }
+                    }]
+                    }).addTo(map);
+
+                    // Agregar el botón al mapa
+                    resetButton.addTo(map);
+
+                    
+                var graticule = L.latlngGraticule({
+                    showLabel: true,
+                    color: '#222',
+                    zoomInterval: [
+                        {start: 12, end: 13, interval: 0.05},
+                        {start: 14, end: 15, interval: 0.025},
+                        {start: 16, end: 17, interval: 0.01}
+                    ]});
+                // Crear un botón con Leaflet.EasyButton
+                    var graticuleButton = L.easyButton('<img src="img/grilla.png"  align="absmiddle" height="16px" >', function(){
+                        if (map.hasLayer(graticule)) {
+                            map.removeLayer(graticule);
+                        } else {
+                            graticule.addTo(map);
+                        }
+                        }, 'Reticula').addTo(map);
+
                 L.control.scale().addTo(map);
                 L.Control.geocoder().addTo(map);
                 legend.addTo(map)

@@ -14,11 +14,10 @@ var map = L.map('map',
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 	
-	var mapabase2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 
+	var mapabase2 = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', 
 		{
       minZoom:13,
-      maxZoom: 16,
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      maxZoom: 16
 		})
 	mapabase.addTo(map);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(map);
@@ -59,7 +58,7 @@ var map = L.map('map',
           });
     });
     // Estado del icono
-    var iconChanged = false;
+    var iconChanged = true;
     //  cambiar los iconos
     function cambiarIconos(comuna22sitios_interes, iconUrl) {
       var iconUrl = iconChanged ? 'img/casa2.png' : 'img/casa.png';

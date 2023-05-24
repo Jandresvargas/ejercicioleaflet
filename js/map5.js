@@ -1,10 +1,5 @@
 //// 
 var map = L.map('map').setView([3.351602, -76.536017], 14);           
-	
-	
-  
-
-
 
 
 	var mapabase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -14,11 +9,10 @@ var map = L.map('map').setView([3.351602, -76.536017], 14);
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 	
-	var mapabase2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 
+	var mapabase2 = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', 
 		{
       minZoom:13,
-      maxZoom: 16,
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      maxZoom: 16
 		})
 	mapabase.addTo(map);
     var leyenda = L.control.layers({mapabase,mapabase2}).addTo(map);
@@ -62,8 +56,7 @@ var map = L.map('map').setView([3.351602, -76.536017], 14);
             layer.bindPopup(layer.feature.properties.NOMBRE);
           });
     });
-    // Estado del icono
-    var iconChanged = false;
+
     //  cambiar los iconos
     function cambiarIconos(comuna22sitios_interes, iconUrl) {
       var iconUrl = iconChanged ? 'img/casa2.png' : 'img/casa.png';
@@ -76,8 +69,6 @@ var map = L.map('map').setView([3.351602, -76.536017], 14);
           }));
         }
       });
-      iconChanged = !iconChanged;
-      
     }
     
     /// Marker cluster o agrupacion de puntos 
@@ -96,8 +87,7 @@ var map = L.map('map').setView([3.351602, -76.536017], 14);
           }
         });
       });
-    
-
+        
       
       //mapa de calor
       fetch('geojson/sitios_interes.geojson')
@@ -158,6 +148,23 @@ var resetButton = L.easyButton({
 },'Ahhhhhhhhhh').addTo(map);
 resetButton.addTo(map);
 
+
+var graticule = L.latlngGraticule({
+  showLabel: true,
+  color: '#222',
+  zoomInterval: [
+    {start: 12, end: 13, interval: 0.05},
+    {start: 14, end: 15, interval: 0.025},
+    {start: 16, end: 17, interval: 0.01}
+  ]}).addTo(map);
+  // Crear un botón con Leaflet.EasyButton
+var graticuleButton = L.easyButton('<img src="img/grilla.png"  align="absmiddle" height="16px" >', function(){
+  if (map.hasLayer(graticule)) {
+    map.removeLayer(graticule);
+  } else {
+    graticule.addTo(map);
+  }
+}, 'Toggle Graticule').addTo(map);
 
 
 // create control and add to 
