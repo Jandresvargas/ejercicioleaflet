@@ -194,12 +194,12 @@ L.LatLngGraticule = L.Layer.extend({
 
         // todo: format type of float
         if (lat < 0) {
-            return 'Lat: ' + (lat*-1).toFixed(2) + 'S';
+            return '' + (lat*-1).toFixed(2) + 'S';
         }
         else if (lat > 0) {
-            return 'Lat: ' + lat.toFixed(2) + 'N';
+            return '' + lat.toFixed(2) + 'N';
         }
-        return 'Lat: ' + lat.toFixed(2);
+        return '' + lat.toFixed(2);
     },
 
     __format_lng: function(lng) {
