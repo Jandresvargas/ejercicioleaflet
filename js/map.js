@@ -14,7 +14,7 @@ var map = L.map('map',
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 	///Mapa base 2
-	var mapabase2 = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', 
+	var mapabase2 = L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png', 
   /// https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
 		{
       minZoom:13,
