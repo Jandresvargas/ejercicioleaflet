@@ -53,7 +53,6 @@ var map = L.map('map',
     CQL_FILTER: "nombre='Comuna 22'",
     });
 
-    comunas.addTo(map)
 
     //// Agregar geojson con informacion extra
     //// Comuna 22
@@ -63,7 +62,17 @@ var map = L.map('map',
         comuna22geojson.eachLayer(function(layer) {
             layer.bindPopup(layer.feature.properties.nombre);
           });
+              // Cambia el estilo del polígono para dejar solo el borde
+        comuna22geojson.setStyle({
+          fill: false,
+          color: '#0000ff',
+          weight: 2,
+          opacity: 0.5
+        });
     });
+
+    comuna22geojson.addTo(map)
+
 
     //// Sitios de interes
     var comuna22sitios_interes = L.geoJSON();
